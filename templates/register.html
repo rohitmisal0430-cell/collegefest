@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ event.name }} Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:
+                linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+                url("{{ url_for('static', filename='images/annual.jpg') }}");
+            background-size:cover;
+            background-position:center;
+            padding:40px 20px;
+        }
+
+        .form-box{
+            width:100%;
+            max-width:650px;
+            background: rgba(0,0,0,0.88);
+            padding:45px;
+            border-radius:20px;
+            box-shadow:0 0 40px rgba(0,0,0,0.6);
+            backdrop-filter: blur(6px);
+            animation: fadeIn 0.8s ease;
+        }
+
+        h2{
+            text-align:center;
+            margin-bottom:25px;
+            color:gold;
+            font-size:28px;
+        }
+
+        .input-group{
+            margin-bottom:18px;
+        }
+
+        label{
+            display:block;
+            margin-bottom:6px;
+            font-size:14px;
+            color:#ddd;
+        }
+
+        input, select, textarea{
+            width:100%;
+            padding:12px;
+            border-radius:8px;
+            border:none;
+            outline:none;
+            font-size:14px;
+            background:#1a1a1a;
+            color:white;
+        }
+
+        textarea{
+            resize:none;
+            height:90px;
+        }
+
+        input:focus, select:focus, textarea:focus{
+            box-shadow:0 0 0 2px gold;
+        }
+
+        .submit-btn{
+            width:100%;
+            padding:14px;
+            margin-top:15px;
+            border:none;
+            border-radius:10px;
+            background:linear-gradient(45deg,gold,orange);
+            font-size:16px;
+            font-weight:bold;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .submit-btn:hover{
+            transform:scale(1.03);
+        }
+
+        .back{
+            text-align:center;
+            margin-top:18px;
+        }
+
+        .back a{
+            color:#00ffcc;
+            text-decoration:none;
+        }
+
+        @keyframes fadeIn{
+            from{opacity:0; transform:translateY(20px);}
+            to{opacity:1; transform:translateY(0);}
+        }
+
+        /* Hidden by default */
+        #otherBox{
+            display:none;
+            animation: fadeIn 0.4s ease;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form-box">
+    <h2>{{ event.name }} Registration</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" name="name" required>
+        </div>
+
+        <div class="input-group">
+            <label>Course</label>
+            <input type="text" name="course" required>
+        </div>
+
+        <div class="input-group">
+            <label>Academic Year</label>
+            <select name="year" required>
+                <option value="">Select Year</option>
+                <option>FY</option>
+                <option>SY</option>
+                <option>TY</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" required>
+        </div>
+
+        <div class="input-group">
+            <label>Participation Category</label>
+            <select name="category" id="category" onchange="checkOther()" required>
+                <option value="">Select Category</option>
+
+                {% if event.is_annual %}
+                <option>Solo Dance</option>
+                <option>Group Dance</option>
+                <option>Singing</option>
+                <option>Group Singing</option>
+                <option>Stand-up Comedy</option>
+                <option value="Other">Other</option>
+                {% else %}
+                <option>Speech</option>
+                <option>Singing</option>
+                <option value="Other">Other</option>
+                {% endif %}
+
+            </select>
+        </div>
+
+        <!-- SHOWS ONLY IF OTHER SELECTED -->
+        <div class="input-group" id="otherBox">
+            <label>Please describe your performance</label>
+            <textarea name="other_note" placeholder="Describe what you want to perform..."></textarea>
+        </div>
+
+        {% if event.is_annual %}
+        <div class="input-group">
+            <label>Upload Performance Music (MP3)</label>
+            <input type="file" name="music" accept=".mp3">
+        </div>
+        {% endif %}
+
+        <button class="submit-btn">Submit Registration</button>
+
+    </form>
+
+    <div class="back">
+        <a href="/">← Back to Events</a>
+    </div>
+</div>
+
+<script>
+function checkOther(){
+    var cat = document.getElementById("category").value;
+    var box = document.getElementById("otherBox");
+
+    if(cat === "Other"){
+        box.style.display = "block";
+    } else {
+        box.style.display = "none";
+    }
+}
+</script>
+
+</body>
+</html>

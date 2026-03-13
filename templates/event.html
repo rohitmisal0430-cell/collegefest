@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ event.name }}</title>
+</head>
+<body style="background:black; color:white; font-family:Arial; margin:0;">
+
+<div>
+    <img src="{{ url_for('static', filename=event.images) }}"> 
+         style="width:100%; aspect-ratio:16/9; object-fit:cover;">
+</div>
+
+<div style="padding:40px; text-align:center;">
+
+    <h1>{{ event.name }}</h1>
+    <h3>📅 {{ event.date }}</h3>
+    <p>{{ event.description }}</p>
+
+    <div style="background:#111; padding:30px; border-radius:15px; width:60%; margin:auto; margin-top:30px;">
+
+        <h2>🎭 Participate Now</h2>
+
+        <form action="/submit" method="POST" enctype="multipart/form-data">
+
+            <input type="hidden" name="event_slug" value="{{ event.slug }}">
+
+            <input type="text" name="student_name" placeholder="Your Name" required
+                   style="width:90%; padding:10px; margin:10px 0; border-radius:8px; border:none;">
+
+            <select name="performance_type" required
+                    style="width:90%; padding:10px; margin:10px 0; border-radius:8px; border:none;">
+                <option value="">Select Performance Type</option>
+                <option>Solo Singing</option>
+                <option>Solo Dance</option>
+                <option>Group Dance</option>
+                <option>Drama / Play</option>
+                <option>Band Performance</option>
+                <option>Instrumental</option>
+                <option>Other</option>
+            </select>
+
+            <input type="text" name="team_name" placeholder="Team Name (If Group)"
+                   style="width:90%; padding:10px; margin:10px 0; border-radius:8px; border:none;">
+
+            <br>
+            <label>Upload Song (Optional)</label><br>
+            <input type="file" name="song_file" accept=".mp3,.wav"
+                   style="margin-top:10px;">
+
+            <br><br>
+            <button type="submit"
+                    style="background:gold; padding:12px 25px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
+                Submit Participation
+            </button>
+        </form>
+
+        <div style="margin-top:40px; background:#1a1a1a; padding:20px; border-radius:12px;">
+            <h3>📞 Need Help?</h3>
+            <p>Event Coordinator: <b>Rohit Misal</b></p>
+            <p>Contact Number: <b>+91 9876543210</b></p>
+        </div>
+
+    </div>
+
+    <br><br>
+    <a href="/" style="color:gold;">⬅ Back to Home</a>
+
+</div>
+
+</body>
+</html>
