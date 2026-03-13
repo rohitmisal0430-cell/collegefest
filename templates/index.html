@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CollegeFest 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #111, #000);
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 25px 0;
+            font-size: 42px;
+            background: linear-gradient(90deg, gold, orange, gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* HERO FULL WIDTH */
+        .hero {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .hero img {
+            width: 100%;
+            height: auto;
+            display:block;
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            padding: 22px 60px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .hero-content h2 {
+            margin: 0;
+            font-size: 34px;
+            color: gold;
+        }
+
+        .countdown {
+            font-size: 20px;
+            margin-top: 10px;
+            color: orange;
+            font-weight: bold;
+        }
+
+        /* EVENTS SECTION FULL WIDTH */
+        .card-container {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding: 40px 60px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 18px;
+            padding: 18px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .legend-img {
+           width: 100%;
+           height: auto;
+           max-height: 220px;
+           object-fit: contain;
+           background: black;
+           border-radius: 14px;
+           margin-bottom: 12px;
+}
+
+        .card h3 {
+            margin: 8px 0;
+            font-size: 18px;
+        }
+
+        .days {
+            color: #00ffcc;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:1100px){
+            .card-container{
+                grid-template-columns: repeat(2,1fr);
+                padding: 30px;
+            }
+        }
+
+        @media(max-width:600px){
+            .card-container{
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<h1> CollegeFest 2026 </h1>
+
+<!-- ANNUAL FEST -->
+<div class="hero" onclick="window.location.href='/annual-register'">
+    <img src="{{ url_for('static', filename='images/annual.jpg') }}">
+    <div class="hero-content">
+        <h2>Annual Cultural Fest 2026</h2>
+        <div class="countdown" id="annualCountdown"></div>
+    </div>
+</div>
+
+<!-- OTHER EVENTS -->
+<div class="card-container">
+
+    <div class="card">
+        <img src="{{ url_for('static', filename='images/phule.jpg') }}" class="legend-img">
+        <h3>Mahatma Phule Jayanti</h3>
+        <div class="days" id="c1"></div>
+    </div>
+
+    <div class="card">
+        <img src="{{ url_for('static', filename='images/ambedkar.jpg') }}" class="legend-img">
+        <h3>Dr. Babasaheb Ambedkar Jayanti</h3>
+        <div class="days" id="c2"></div>
+    </div>
+
+    <div class="card">
+        <img src="{{ url_for('static', filename='images/maharashtra.jpg') }}" class="legend-img">
+        <h3>Maharashtra Day</h3>
+        <div class="days" id="c3"></div>
+    </div>
+
+    <div class="card">
+        <img src="{{ url_for('static', filename='images/independence.jpg') }}" class="legend-img">
+        <h3>Independence Day</h3>
+        <div class="days" id="c4"></div>
+    </div>
+
+</div>
+
+<script>
+function countdown(dateStr, elementId){
+    var eventDate = new Date(dateStr).getTime();
+
+    var x = setInterval(function(){
+        var now = new Date().getTime();
+        var distance = eventDate - now;
+
+        if(distance < 0){
+            document.getElementById(elementId).innerHTML = "Event Started";
+            clearInterval(x);
+            return;
+        }
+
+        var days = Math.floor(distance/(1000*60*60*24));
+        var hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+        var minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+        var seconds = Math.floor((distance%(1000*60))/1000);
+
+        document.getElementById(elementId).innerHTML =
+            days+"d "+hours+"h "+minutes+"m "+seconds+"s";
+    },1000);
+}
+
+countdown("March 18, 2026 00:00:00", "annualCountdown");
+countdown("April 11, 2026 00:00:00", "c1");
+countdown("April 14, 2026 00:00:00", "c2");
+countdown("May 1, 2026 00:00:00", "c3");
+countdown("August 15, 2026 00:00:00", "c4");
+</script>
+
+</body>
+</html>
