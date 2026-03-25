@@ -26,7 +26,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* HERO FULL WIDTH */
         .hero {
             width: 100%;
             position: relative;
@@ -64,7 +63,6 @@
             font-weight: bold;
         }
 
-        /* EVENTS SECTION FULL WIDTH */
         .card-container {
             width: 100%;
             display: grid;
@@ -80,6 +78,7 @@
             text-align: center;
             transition: 0.3s;
             border: 1px solid rgba(255,255,255,0.15);
+            cursor:pointer;
         }
 
         .card:hover {
@@ -95,7 +94,7 @@
            background: black;
            border-radius: 14px;
            margin-bottom: 12px;
-}
+        }
 
         .card h3 {
             margin: 8px 0;
@@ -108,7 +107,6 @@
             font-size: 16px;
         }
 
-        /* RESPONSIVE */
         @media(max-width:1100px){
             .card-container{
                 grid-template-columns: repeat(2,1fr);
@@ -141,25 +139,25 @@
 <!-- OTHER EVENTS -->
 <div class="card-container">
 
-    <div class="card">
+    <div class="card" onclick="window.location.href='/register/2'">
         <img src="{{ url_for('static', filename='images/phule.jpg') }}" class="legend-img">
         <h3>Mahatma Phule Jayanti</h3>
         <div class="days" id="c1"></div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="window.location.href='/register/3'">
         <img src="{{ url_for('static', filename='images/ambedkar.jpg') }}" class="legend-img">
         <h3>Dr. Babasaheb Ambedkar Jayanti</h3>
         <div class="days" id="c2"></div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="window.location.href='/register/4'">
         <img src="{{ url_for('static', filename='images/maharashtra.jpg') }}" class="legend-img">
         <h3>Maharashtra Day</h3>
         <div class="days" id="c3"></div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="window.location.href='/register/5'">
         <img src="{{ url_for('static', filename='images/independence.jpg') }}" class="legend-img">
         <h3>Independence Day</h3>
         <div class="days" id="c4"></div>
